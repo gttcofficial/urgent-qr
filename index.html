@@ -52,10 +52,16 @@
         html5QrCode.start(
           { facingMode: "environment" },
           qrConfig,
-          qrCodeMessage => {
-            scannedCode = qrCodeMessage.trim();
-            document.getElementById("scannedProduct").innerText = scannedCode;
-          },
+qrCodeMessage => {
+  const match = qrCodeMessage.match(/l(.*?)\[/);
+  if (match && match[1]) {
+    scannedCode = match[1].trim(); // 👉 ได้ 94063-06000
+    document.getElementById("scannedProduct").innerText = scannedCode;
+  } else {
+    scannedCode = "";
+    document.getElementById("scannedProduct").innerText = "❌ ไม่พบรหัสสินค้าใน QR นี้";
+  }
+}
           errorMessage => {
             // ไม่ต้องแสดง error
           }
