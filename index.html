@@ -53,9 +53,10 @@
           { facingMode: "environment" },
           qrConfig,
 qrCodeMessage => {
-  const match = qrCodeMessage.match(/l(.*?)\[/);
+  console.log("QR scanned:", qrCodeMessage); // 👉 ดูค่าเต็มที่สแกนได้
+  const match = qrCodeMessage.match(/l([^[]+)\[/i);
   if (match && match[1]) {
-    scannedCode = match[1].trim(); // 👉 ได้ 94063-06000
+    scannedCode = match[1].trim();
     document.getElementById("scannedProduct").innerText = scannedCode;
   } else {
     scannedCode = "";
